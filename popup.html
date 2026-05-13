@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebP to Image</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header>
+    <h1>WebP to Image</h1>
+    <p class="subtitle">이미지 우클릭 후 저장 포맷을 선택하세요</p>
+  </header>
+
+  <main>
+    <section class="setting-group">
+      <label class="setting-label">기본 저장 포맷</label>
+      <div class="radio-group">
+        <label class="radio-item">
+          <input type="radio" name="format" value="png" />
+          <span class="radio-box"></span>
+          PNG
+          <span class="badge">투명도 지원</span>
+        </label>
+        <label class="radio-item">
+          <input type="radio" name="format" value="jpg" />
+          <span class="radio-box"></span>
+          JPG
+          <span class="badge">파일 작음</span>
+        </label>
+      </div>
+    </section>
+
+    <section class="setting-group" id="quality-section">
+      <label class="setting-label" for="quality-slider">
+        JPG 품질
+        <span id="quality-value" class="quality-display">92%</span>
+      </label>
+      <input
+        type="range"
+        id="quality-slider"
+        min="50"
+        max="100"
+        value="92"
+        step="1"
+      />
+      <div class="range-labels">
+        <span>저용량</span>
+        <span>고화질</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span id="save-status" class="save-status"></span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

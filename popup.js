@@ -21,8 +21,8 @@ function saveSettings() {
   const quality = parseInt(qualitySlider.value, 10) / 100; // 슬라이더값(50~100) → 소수(0.5~1.0)
   chrome.storage.sync.set({ format, quality }, showSaved);
 
-  // PNG 선택 시 품질 슬라이더를 비활성화 상태로 표시 (JPG/JFIF 전용 옵션)
-  const hasQuality = format === 'jpg' || format === 'jfif';
+  // PNG 선택 시 품질 슬라이더를 비활성화 상태로 표시 (JPG 전용 옵션)
+  const hasQuality = format === 'jpg';
   qualitySection.style.opacity = hasQuality ? '1' : '0.4';
   qualitySection.style.pointerEvents = hasQuality ? 'auto' : 'none';
 }
@@ -50,7 +50,7 @@ chrome.storage.sync.get({ format: 'png', quality: 1.0 }, ({ format, quality }) =
   qualityValue.textContent = `${pct}%`;
 
   // PNG 선택 상태이면 품질 슬라이더 비활성화
-  const hasQuality = format === 'jpg' || format === 'jfif';
+  const hasQuality = format === 'jpg';
   qualitySection.style.opacity = hasQuality ? '1' : '0.4';
   qualitySection.style.pointerEvents = hasQuality ? 'auto' : 'none';
 });

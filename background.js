@@ -1,6 +1,7 @@
 // 컨텍스트 메뉴 항목 ID
 const MENU_PNG = 'save-as-png';
 const MENU_JPG = 'save-as-jpg';
+const MENU_JFIF = 'save-as-jfif';
 
 // 확장 프로그램이 설치되거나 업데이트될 때 우클릭 메뉴를 등록
 chrome.runtime.onInstalled.addListener(() => {
@@ -14,6 +15,11 @@ chrome.runtime.onInstalled.addListener(() => {
     title: 'JPG로 저장',
     contexts: ['image'],
   });
+  chrome.contextMenus.create({
+    id: MENU_JFIF,
+    title: 'JFIF로 저장',
+    contexts: ['image'],
+  });
 });
 
 // 우클릭 메뉴 클릭 이벤트 처리
@@ -22,6 +28,8 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     convertAndDownload(info.srcUrl, 'image/png', 'png');
   } else if (info.menuItemId === MENU_JPG) {
     convertAndDownload(info.srcUrl, 'image/jpeg', 'jpg');
+  } else if (info.menuItemId === MENU_JFIF) {
+    convertAndDownload(info.srcUrl, 'image/jpeg', 'jfif');
   }
 });
 
@@ -68,7 +76,7 @@ async function convertAndDownload(srcUrl, mimeType, ext) {
 
     chrome.downloads.download({ url: dataUrl, filename });
   } catch (err) {
-    console.error('[WebP to Image] 변환 중 오류:', err);
+    console.error('[web-image-converter] 변환 중 오류:', err);
   }
 }
 
@@ -105,6 +113,6 @@ function buildFilename(srcUrl, ext) {
 // chrome.storage.sync에서 사용자 설정(품질)을 불러오는 함수
 async function getSettings() {
   return new Promise((resolve) => {
-    chrome.storage.sync.get({ quality: 0.92 }, resolve); // 기본값: 92%
+    chrome.storage.sync.get({ quality: 1.0 }, resolve); // 기본값: 100%
   });
 }

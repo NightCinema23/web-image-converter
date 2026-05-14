@@ -21,9 +21,10 @@ function saveSettings() {
   const quality = parseInt(qualitySlider.value, 10) / 100; // 슬라이더값(50~100) → 소수(0.5~1.0)
   chrome.storage.sync.set({ format, quality }, showSaved);
 
-  // PNG 선택 시 품질 슬라이더를 비활성화 상태로 표시 (JPG 전용 옵션)
-  qualitySection.style.opacity = format === 'jpg' ? '1' : '0.4';
-  qualitySection.style.pointerEvents = format === 'jpg' ? 'auto' : 'none';
+  // PNG 선택 시 품질 슬라이더를 비활성화 상태로 표시 (JPG/JFIF 전용 옵션)
+  const hasQuality = format === 'jpg' || format === 'jfif';
+  qualitySection.style.opacity = hasQuality ? '1' : '0.4';
+  qualitySection.style.pointerEvents = hasQuality ? 'auto' : 'none';
 }
 
 // 포맷 라디오 버튼 변경 감지
@@ -38,7 +39,7 @@ qualitySlider.addEventListener('input', () => {
 qualitySlider.addEventListener('change', saveSettings);
 
 // 팝업이 열릴 때 chrome.storage.sync에서 저장된 설정을 불러와 UI에 반영
-chrome.storage.sync.get({ format: 'png', quality: 0.92 }, ({ format, quality }) => {
+chrome.storage.sync.get({ format: 'png', quality: 1.0 }, ({ format, quality }) => {
   // 저장된 포맷에 맞는 라디오 버튼 선택
   const radio = document.querySelector(`input[name="format"][value="${format}"]`);
   if (radio) radio.checked = true;
@@ -49,6 +50,7 @@ chrome.storage.sync.get({ format: 'png', quality: 0.92 }, ({ format, quality }) 
   qualityValue.textContent = `${pct}%`;
 
   // PNG 선택 상태이면 품질 슬라이더 비활성화
-  qualitySection.style.opacity = format === 'jpg' ? '1' : '0.4';
-  qualitySection.style.pointerEvents = format === 'jpg' ? 'auto' : 'none';
+  const hasQuality = format === 'jpg' || format === 'jfif';
+  qualitySection.style.opacity = hasQuality ? '1' : '0.4';
+  qualitySection.style.pointerEvents = hasQuality ? 'auto' : 'none';
 });

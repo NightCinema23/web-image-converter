@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WebP to Image</title>
+  <title>Web Image Converter</title>
   <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
   <header>
-    <h1>WebP to Image</h1>
+    <h1>Web Image Converter</h1>
     <p class="subtitle">이미지 우클릭 후 저장 포맷을 선택하세요</p>
   </header>
 
@@ -28,20 +28,26 @@
           JPG
           <span class="badge">파일 작음</span>
         </label>
+        <label class="radio-item">
+          <input type="radio" name="format" value="jfif" />
+          <span class="radio-box"></span>
+          JFIF
+          <span class="badge">레거시</span>
+        </label>
       </div>
     </section>
 
     <section class="setting-group" id="quality-section">
       <label class="setting-label" for="quality-slider">
         JPG 품질
-        <span id="quality-value" class="quality-display">92%</span>
+        <span id="quality-value" class="quality-display">100%</span>
       </label>
       <input
         type="range"
         id="quality-slider"
         min="50"
         max="100"
-        value="92"
+        value="100"
         step="1"
       />
       <div class="range-labels">

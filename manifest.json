@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "WebP to Image",
+  "name": "Web Image Converter",
   "version": "1.0.0",
-  "description": "WebP 이미지를 우클릭 한 번으로 PNG 또는 JPG로 변환 저장",
+  "description": "WebP·JFIF 이미지를 우클릭 한 번으로 PNG, JPG, JFIF로 변환 저장",
   "permissions": ["downloads", "contextMenus", "storage"],
   "host_permissions": ["<all_urls>"],
   "background": {
